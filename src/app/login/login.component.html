@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Book the appointment </P>
+      </div>
+      <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+        <div class="emailInput">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              formControlName="mobileNumber"
+              matInput
+              placeholder="Enter mobile number" required maxlength="10"
+            />
+            <mat-error *ngIf="!loginForm.controls['mobileNumber'].valid">
+                Mobile number is required
+              </mat-error>
+          </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">Submit</button>
+      </form>
+
+     
+    </mat-card-content>
+  </mat-card>

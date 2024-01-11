@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Patient details</P>
+      </div>
+      <form (ngSubmit)="onUserInput()" name="userInputForm" [formGroup]="userInputForm">
+        <div class="emailInput">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Patient Name</mat-label>
+            <input
+              formControlName="patientName"
+              matInput
+              placeholder="Enter patient name" required maxlength="100"
+            />
+            <mat-error *ngIf="!userInputForm.controls['patientName'].valid">
+                Patient Name is required
+              </mat-error>
+          </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary">Next</button>
+      </form>
+
+     
+    </mat-card-content>
+  </mat-card>
