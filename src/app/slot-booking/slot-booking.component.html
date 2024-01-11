@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Slot Booking</P>
+      </div>
+      <form (ngSubmit)="onSlotBooking()" name="slotBookingForm" [formGroup]="slotBookingForm">
+        <div class="emailInput">
+          <!-- <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Booking Date</mat-label>
+            <input
+              formControlName="solBooking"
+              matInput
+              placeholder="Enter patient name" required maxlength="100"
+            />
+            <mat-error *ngIf="!slotBookingForm.controls['solBooking'].valid">
+                Patient Name is required
+              </mat-error>
+          </mat-form-field> -->
+
+          <mat-form-field>
+            <mat-label>Choose a Booking Date</mat-label>
+            <input matInput [matDatepicker]="slotBookingDate"  [formControl]="date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="slotBookingDate"></mat-datepicker-toggle>
+            <mat-datepicker #slotBookingDate></mat-datepicker>
+          </mat-form-field>
+          
+        </div>
+
+        <button mat-flat-button color="primary">Next</button>
+      </form>
+
+     
+    </mat-card-content>
+  </mat-card>
