@@ -8,11 +8,11 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Mobile Number</mat-label>
             <input
-              formControlName="mobileNumber"
+              formControlName="phone_number"
               matInput
               placeholder="Enter mobile number" required maxlength="10"
             />
-            <mat-error *ngIf="!loginForm.controls['mobileNumber'].valid">
+            <mat-error *ngIf="!loginForm.controls['phone_number'].valid">
                 Mobile number is required
               </mat-error>
           </mat-form-field>

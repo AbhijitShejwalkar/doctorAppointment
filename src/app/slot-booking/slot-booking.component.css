@@ -1,3 +1,19 @@
+.card-container {
+  display: flex;
+  flex-wrap:wrap;
+  gap:16px
+
+}
+.card {
+  flex: 0 0 calc(20% - 16px);
+  max-width: calc(20% - 16px);
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform:  scale(1.05);
+}
 mat-card {
     max-width: 600px;
     margin: 2em auto;

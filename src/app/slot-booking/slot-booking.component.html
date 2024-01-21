@@ -3,33 +3,71 @@
       <div class="header">
         <P>Slot Booking</P>
       </div>
-      <form (ngSubmit)="onSlotBooking()" name="slotBookingForm" [formGroup]="slotBookingForm">
+      <form (ngSubmit)="onSlotBooking()"  [formGroup]="slotBookingForm">
         <div class="emailInput">
-          <!-- <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Booking Date</mat-label>
-            <input
-              formControlName="solBooking"
-              matInput
-              placeholder="Enter patient name" required maxlength="100"
-            />
-            <mat-error *ngIf="!slotBookingForm.controls['solBooking'].valid">
-                Patient Name is required
-              </mat-error>
-          </mat-form-field> -->
-
           <mat-form-field>
             <mat-label>Choose a Booking Date</mat-label>
-            <input matInput [matDatepicker]="slotBookingDate"  [formControl]="date">
+            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter"  formControlName="slotBookingDate">
             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="slotBookingDate"></mat-datepicker-toggle>
-            <mat-datepicker #slotBookingDate></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          
-        </div>
+         </div>
 
         <button mat-flat-button color="primary">Next</button>
       </form>
 
-     
     </mat-card-content>
   </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Time slot
+      </mat-card-title> 
+    </mat-card-header>
+    <mat-card-header>
+      <div class="card-container">
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>  
+
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+        <mat-card class="card">
+          <mat-card-content>10:00 am</mat-card-content>
+        </mat-card>       
+      
+
+        
+        
+
+      
+
+      </div>
+    </mat-card-header>
+  </mat-card>
+  
