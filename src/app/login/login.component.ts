@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginService } from './services/login.service';
+import { LoginService } from '../services/login.service';
 
 
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginForm: FormGroup = this.fb.group({
-    phone_nuimmber: ['', [Validators.required, Validators.minLength(10)]],
+    phone_number: ['', [Validators.required, Validators.minLength(10)]],
   })
 
 
@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-	
+
 	this.loginService.login(this.loginForm.value).subscribe((data) => {
 		console.log(data);
 	})
-    
+
   //  this.router.navigate(['user-input']);
     console.log(this.loginForm.value);
   }
