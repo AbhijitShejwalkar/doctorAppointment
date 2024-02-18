@@ -41,12 +41,24 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-	this.loginService.login(this.loginForm.value).subscribe((data) => {
-		console.log(data);
+
+	this.loginService.login(this.loginForm.value).subscribe((data: any) => {
+    // is_registered true means user already present in system so direct to slot booking else user input
+    if(data.data.is_registered == true )
+    {
+      this.router.navigate(['/slot-booking']);
+    } else
+    {
+      localStorage.setItem('sessionPhoneNumber', this.loginForm.value.phone_number);
+      console.log(localStorage.getItem('sessionPhoneNumber'));
+
+      // JSON.parse(localStorage.getItem('identity')|| '{}');
+      // console.log(  JSON.parse(localStorage.getItem('sessionPhoneNumber')|| '{}'));
+      this.router.navigate(['/user-input']);
+    }
+
 	})
 
-  //  this.router.navigate(['user-input']);
-    console.log(this.loginForm.value);
   }
 
 }

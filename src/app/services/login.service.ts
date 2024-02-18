@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginService {
 
-	url = 'http://localhost:8081/'
+	url = ' http://ec2-54-198-60-162.compute-1.amazonaws.com:8081/'
    constructor(private http: HttpClient) {}
 
   login(data:any){

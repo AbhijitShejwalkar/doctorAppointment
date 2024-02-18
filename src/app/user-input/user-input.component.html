@@ -8,19 +8,28 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Patient Name</mat-label>
             <input
-              formControlName="patientName"
+              formControlName="patient_name"
               matInput
               placeholder="Enter patient name" required maxlength="100"
             />
-            <mat-error *ngIf="!userInputForm.controls['patientName'].valid">
+            <mat-error *ngIf="!userInputForm.controls['patient_name'].valid">
                 Patient Name is required
               </mat-error>
           </mat-form-field>
+
+          <input type="hidden" formControlName="phone_number" [ngModel]=sessionPhoneNumberValue >
+          {{ sessionPhoneNumberValue }}
+
+
+          <input type="hidden" formControlName="patient_device_ip" [ngModel]=ipid >
+
+
+
         </div>
 
         <button mat-flat-button color="primary">Next</button>
       </form>
 
-     
+
     </mat-card-content>
   </mat-card>

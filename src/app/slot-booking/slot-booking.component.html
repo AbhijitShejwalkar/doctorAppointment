@@ -1,4 +1,5 @@
-<mat-card>
+<div class="container">
+  <mat-card>
     <mat-card-content>
       <div class="header">
         <P>Slot Booking</P>
@@ -20,54 +21,28 @@
     </mat-card-content>
   </mat-card>
 
+
   <mat-card>
     <mat-card-header>
       <mat-card-title>
         Time slot
-      </mat-card-title> 
+      </mat-card-title>
     </mat-card-header>
     <mat-card-header>
+
+
       <div class="card-container">
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>  
+        @for( slot of slotBookingData; track slot.slotId) {
 
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
-        <mat-card class="card">
-          <mat-card-content>10:00 am</mat-card-content>
-        </mat-card>       
-      
+          <mat-card class="card">
 
-        
-        
-
-      
-
+            <mat-card-content (click)="bookAppointment(slot.slotTime,'11/11/2023')">{{ slot.slotTime }} </mat-card-content>
+          </mat-card>
+        }
       </div>
+
     </mat-card-header>
   </mat-card>
-  
+</div>
+
+
