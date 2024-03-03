@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router} from '@angular/router';
 import { SlotbookingService } from '../services/slotbooking.service';
 import { DatePipe } from '@angular/common'
+import { LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY } from '@angular/cdk/a11y';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class SlotBookingComponent implements OnInit {
   maxDate!: Date;
   slotBookingData:any[] = [];
   errorMessage: string | undefined;
+  paitentId:any;
   constructor(private fb: FormBuilder,private router: Router, private slotbookingService: SlotbookingService, public datepipe: DatePipe ) {
 
   }
@@ -44,7 +46,15 @@ export class SlotBookingComponent implements OnInit {
       slotBookingDate: [new Date(), Validators.required],
 
     })
+    
 
+    if (typeof localStorage !== 'undefined') {
+      this.paitentId =(localStorage.getItem('patient_id') || '""' );
+
+      console.log((localStorage.getItem('patient_id') || '""' ));
+      // rest of the code ...
+    }
+  
     this.onSlotBooking();
 
   }
@@ -75,7 +85,9 @@ export class SlotBookingComponent implements OnInit {
     let object_data = {
         "date": latest_date
     }
+    if (typeof localStorage !== 'undefined') {
     localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
+    }
     this.slotbookingService.slotBooking(object_data).subscribe((data: any) => {
       // successful_response true means user register sucessfully
       if(data.status == "success")
@@ -95,16 +107,19 @@ export class SlotBookingComponent implements OnInit {
 
   bookAppointment(slot_time:any,appointment_date:any) {
 
-    let selectedDate = localStorage.getItem('selectedDate');
+    if (typeof localStorage !== 'undefined') {
+      let selectedDate = localStorage.getItem('selectedDate');
+    
     let selectedDateFomrated = this.datepipe.transform(selectedDate, 'dd/MM/yyyy');
     alert(selectedDateFomrated);
     alert(slot_time);
 
     let input_object  = {
-      "patient_phone_number": localStorage.getItem('sessionPhoneNumber'),
+      "patient_name": this.paitentId,
       "appointment_date": selectedDateFomrated,
       "slot_time": slot_time
   }
+  
 
   console.log(input_object)
 
@@ -112,14 +127,18 @@ export class SlotBookingComponent implements OnInit {
       // successful_response true means user register sucessfully
       if(data.status == "success")
       {
-          // this.slotBookingData = data.data;
+            alert("Apoointment Booked succesfully for Date "+selectedDateFomrated+" at "+ slot_time )
+            this.onSlotBooking();            
+           // this.slotBookingData = data.data;
           // localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
 
       } else {
-          // this.errorMessage = data.message;
+          this.errorMessage = data.error.message;
+          alert(this.errorMessage);
       }
 
     })
+  }
   }
 
 

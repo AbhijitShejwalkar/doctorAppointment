@@ -10,9 +10,6 @@ import { RouterModule, Router} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from '../services/login.service';
 
-
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -43,17 +40,18 @@ export class LoginComponent implements OnInit {
 
 
 	this.loginService.login(this.loginForm.value).subscribe((data: any) => {
+    console.log()
+    localStorage.setItem('sessionPhoneNumber', this.loginForm.value.phone_number);          
+    console.log(localStorage.getItem('sessionPhoneNumber'));
+
     // is_registered true means user already present in system so direct to slot booking else user input
     if(data.data.is_registered == true )
     {
+      
+      localStorage.setItem('patient_id', data.data.patient_details.patient_id);     
       this.router.navigate(['/slot-booking']);
     } else
     {
-      localStorage.setItem('sessionPhoneNumber', this.loginForm.value.phone_number);
-      console.log(localStorage.getItem('sessionPhoneNumber'));
-
-      // JSON.parse(localStorage.getItem('identity')|| '{}');
-      // console.log(  JSON.parse(localStorage.getItem('sessionPhoneNumber')|| '{}'));
       this.router.navigate(['/user-input']);
     }
 

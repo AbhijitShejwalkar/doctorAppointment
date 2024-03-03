@@ -1,6 +1,11 @@
 .content-body{
-    min-height: 100%;
+   /* min-height: 100%; */
     padding: 60px 1rem;
     background: #16bca8;
     display: block;
+}
+
+.navbar-inverse {
+    background-color: #005fa7;
+    border-color: #84bb30;
 }
