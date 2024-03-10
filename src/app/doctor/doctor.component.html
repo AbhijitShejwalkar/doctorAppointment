@@ -1,0 +1,56 @@
+<div class="row">
+  <mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Slot Booking</P>
+      </div>
+      <form (ngSubmit)="checkAppoinment()"  [formGroup]="slotBookingForm">
+        <div class="emailInput">
+          <mat-form-field>
+            <mat-label>Choose a Booking Date</mat-label>
+            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter"  formControlName="slotBookingDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+         </div>
+
+        <button mat-flat-button color="primary">Next</button>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="container p-5">
+
+
+
+  <table class="table table-striped table-bordered table-sm row-border hover" id="datatableexample">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let group of data">
+        <!-- {{ data.length  +'sss'}} aaaaaaaaaaa -->
+     <tr *ngIf="data.length > 0">
+
+           <td width="10%">{{group?.appointment_details.token_number}} {{ data.length  }}</td>
+           <td  width="50%">{{group?.appointment_details?.patient_id?.patientName}}</td>
+           <td width="20%">{{group?.appointment_details?.patient_id?.
+            phoneNumber}}</td>
+            <td width="20%">
+              <button>Done</button>&nbsp; &nbsp;<button>Cancel</button></td>
+
+
+       </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

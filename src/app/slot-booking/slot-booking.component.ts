@@ -12,7 +12,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router} from '@angular/router';
-import { SlotbookingService } from '../services/slotbooking.service';
+import { SlotbookingService } from '.././services/slotbooking.service'
 import { DatePipe } from '@angular/common'
 import { LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY } from '@angular/cdk/a11y';
 
@@ -46,7 +46,7 @@ export class SlotBookingComponent implements OnInit {
       slotBookingDate: [new Date(), Validators.required],
 
     })
-    
+
 
     if (typeof localStorage !== 'undefined') {
       this.paitentId =(localStorage.getItem('patient_id') || '""' );
@@ -54,7 +54,7 @@ export class SlotBookingComponent implements OnInit {
       console.log((localStorage.getItem('patient_id') || '""' ));
       // rest of the code ...
     }
-  
+
     this.onSlotBooking();
 
   }
@@ -109,17 +109,17 @@ export class SlotBookingComponent implements OnInit {
 
     if (typeof localStorage !== 'undefined') {
       let selectedDate = localStorage.getItem('selectedDate');
-    
+
     let selectedDateFomrated = this.datepipe.transform(selectedDate, 'dd/MM/yyyy');
     alert(selectedDateFomrated);
     alert(slot_time);
 
     let input_object  = {
-      "patient_name": this.paitentId,
+      "patient_id": this.paitentId,
       "appointment_date": selectedDateFomrated,
       "slot_time": slot_time
   }
-  
+
 
   console.log(input_object)
 
@@ -128,7 +128,7 @@ export class SlotBookingComponent implements OnInit {
       if(data.status == "success")
       {
             alert("Apoointment Booked succesfully for Date "+selectedDateFomrated+" at "+ slot_time )
-            this.onSlotBooking();            
+            this.onSlotBooking();
            // this.slotBookingData = data.data;
           // localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
 
