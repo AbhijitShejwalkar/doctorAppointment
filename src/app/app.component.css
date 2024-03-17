@@ -1,8 +1,11 @@
 .content-body{
    /* min-height: 100%; */
     padding: 60px 1rem;
-    background: #16bca8;
+   /* background: #9DCA00*/
     display: block;
+	height: 100%
+
+	
 }
 
 .navbar-inverse {

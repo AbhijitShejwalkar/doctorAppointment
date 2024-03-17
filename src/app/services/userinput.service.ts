@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { LoaderService } from '.././loader/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +9,17 @@ import { HttpClient } from '@angular/common/http';
 export class UserinputService {
 
   url = ' http://ec2-54-198-60-162.compute-1.amazonaws.com:8081/'
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loaderService: LoaderService) {
 
   }
 
   userInput(data:any){
-    return this.http.post(this.url+'patient/register-patient', data);
+    this.loaderService.show();
+    return this.http.post(this.url+'patient/register-patient', data).pipe(
+      tap(() => {
+        // Hide loader when API call completes
+        this.loaderService.hide();
+      })
+    );
   }
 }

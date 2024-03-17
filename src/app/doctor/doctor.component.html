@@ -1,4 +1,30 @@
-<div class="row">
+<!-- src/app/item-list.component.html -->
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Slot time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of items">
+      <td width="10%">{{group?.appointment_details.token_number}} {{ data.length  }}</td>
+      <td  width="50%">{{group?.appointment_details?.patient_id?.patientName}}</td>
+      <td width="20%">{{group?.appointment_details?.patient_id?.phoneNumber}}</td>
+      <td width="20%">{{group?.appointment_details?.slot_time}}</td>
+      <td>
+        <button (click)="updateItem(group?.appointment_details?.appointmentId)">Edit</button>
+        <button (click)="deleteItem(group?.appointment_details?.appointmentId)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- <div class="row">
   <mat-card>
     <mat-card-content>
       <div class="header">
@@ -32,25 +58,27 @@
         <th>Token</th>
         <th>Name</th>
         <th>Phone</th>
+        <th>Slot time</th>
         <th>Action</th>
 
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let group of data">
-        <!-- {{ data.length  +'sss'}} aaaaaaaaaaa -->
-     <tr *ngIf="data.length > 0">
+      <ng-container>
 
-           <td width="10%">{{group?.appointment_details.token_number}} {{ data.length  }}</td>
-           <td  width="50%">{{group?.appointment_details?.patient_id?.patientName}}</td>
-           <td width="20%">{{group?.appointment_details?.patient_id?.
-            phoneNumber}}</td>
-            <td width="20%">
-              <button>Done</button>&nbsp; &nbsp;<button>Cancel</button></td>
+     <tr *ngFor="let group of data; index as i">
+
+           <td width="10%">{{group?.token_number}} {{ data.length  }}</td>
+           <td  width="50%">{{group?.patientName}}</td>
+           <td width="20%">{{group?.phoneNumber}}</td>
+           <td width="20%">{{group?.slot_time}}</td>
+           <td width="20%">
+           <button>Done</button>&nbsp; &nbsp;<button>Cancel</button>
+          </td>
 
 
        </tr>
       </ng-container>
     </tbody>
   </table>
-</div>
+</div> -->

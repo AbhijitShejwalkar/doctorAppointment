@@ -1,0 +1,61 @@
+<div>
+<mat-card>
+    <mat-card-content>
+      <div class="header">
+        <P>Enter the date to check the appointments</P>
+      </div>
+      <form (ngSubmit)="LoadInvoice()"  [formGroup]="slotBookingForm">
+        <div class="emailInput">
+          <mat-form-field>
+            <mat-label>Choose a Booking Date</mat-label>
+            <input matInput [matDatepicker]="picker"   formControlName="slotBookingDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+         </div>
+
+        <button mat-flat-button color="primary">Search</button>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+   
+   <table class="table table-bordered" datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td>Token</td>
+                    <td>Name</td>
+                    <td>Date</td>
+                    <td>Time</td>
+                    <td>Phone</td>
+                    <!-- <td>Total</td>
+                    <td>Tax</td>
+                    <td>NetTotal</td> -->
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            
+<tr *ngFor="let item of Invoiceheader ">
+   
+    <td width="5%">{{item?.appointment_details?.token_number}}</td>
+    <td width="20%">{{item?.appointment_details?.patient_id?.patientName}}</td>
+    <td width="20%">{{item?.appointment_details?.appointment_date}}</td>
+    <td width="10%">{{item?.appointment_details?.slot_time}}</td>
+    <td width="10%">{{item?.appointment_details?.patient_id?.phoneNumber}}</td>
+    <!-- <td>{{item.total | currency}}</td>
+    <td>{{item.tax | currency}}</td>
+    <td>{{item.netTotal | currency}}</td> -->
+    <td style="width: 35%">
+<a class="btn btn-primary" (click)="DoneAppointment(item?.appointment_details?.appointmentId)">Done</a>| 
+<a class="btn btn-danger" (click)="CancelAppointment(item?.appointment_details?.appointmentId)">Cancel</a>
+    </td>
+
+</tr>
+            </tbody>
+
+        </table>

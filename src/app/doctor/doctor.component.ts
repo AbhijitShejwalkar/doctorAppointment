@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import  { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon'
 import {MatDatepickerModule, MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { Subject } from 'rxjs';
 
 import {MatNativeDateModule} from '@angular/material/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router} from '@angular/router';
 import { SlotbookingService } from '.././services/slotbooking.service'
 import { DatePipe } from '@angular/common'
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-doctor',
@@ -26,10 +28,15 @@ import { DatePipe } from '@angular/common'
   imports: [CommonModule, RouterOutlet, DataTablesModule, HttpClientModule,
     CommonModule, RouterOutlet,CommonModule,MatCardModule,MatButtonModule,MatFormFieldModule, MatInputModule,  MatDatepickerModule, MatNativeDateModule, MatIconModule, ReactiveFormsModule,RouterModule],
   templateUrl: './doctor.component.html',
-  providers: [SlotbookingService,DatePipe],
+  providers: [SlotbookingService,DatePipe,DataTableDirective],
   styleUrls: ['./doctor.component.css']
 })
 export class DoctorComponent implements OnInit , AfterViewInit {
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  items: any[] = [];
+
   title = 'angular17';
   data:any;
   slotBookingForm!: FormGroup;
@@ -82,49 +89,109 @@ checkAppoinment() {
     return;
   }
 
-
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 10
+  };
 
   let latest_date = this.datepipe.transform(this.slotBookingForm.value.slotBookingDate, 'dd/MM/yyyy');
-  console.log(latest_date);
 
   let object_data = {
-      "appointment_date": latest_date
-  }
-  if (typeof localStorage !== 'undefined') {
-  localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
-  }
-  this.recordService.getRecords(object_data).subscribe((data: any) => {
-    // successful_response true means user register sucessfully
-    if(data.status == "success")
-    {
-      this.data = data.data;
+    "appointment_date": latest_date
+}
+
+  this.recordService.getRecords(object_data).subscribe((items: any) => {
+    this.items = items;
+    this.dtTrigger.next(0);
+  });
+
+
+  
 
 
 
-    } else {
-      this.data = data.data;
-    }
+  // let latest_date = this.datepipe.transform(this.slotBookingForm.value.slotBookingDate, 'dd/MM/yyyy');
+  // console.log(latest_date);
 
-    console.log(this.data, 'this.data')
+  // if (typeof localStorage !== 'undefined') {
+  // localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
+  // }
+  // this.recordService.getRecords(object_data).subscribe((reseponse: any) => {
+  //   let record:any = [];
+  //   if(reseponse.status == "success")
+  //   {
+  //     console.log(reseponse.data,'ssss')
+  //   for(let i=0;  i< (reseponse.data.length); i++) {
+
+  //     console.log(reseponse.data[i].appointment_details.token_number, 'appointment_details')
+  //     let rowData = {
+  //       "token_number": reseponse.data[i].appointment_details.token_number, 
+  //       "patientName": reseponse.data[i].appointment_details.patient_id.patientName,
+  //       "slot_time":  reseponse.data[i].appointment_details.slot_time,
+  //       "phoneNumber": reseponse.data[i].appointment_details.patient_id.phoneNumber, 
+  //     }
+  //     record.push(rowData);
 
 
-    setTimeout(()=>{
-      $('#datatableexample').DataTable( {
-       destroy: true,
-       pagingType: 'full_numbers',
-       pageLength: 5,
-       processing: true,
-      //  destroy: true,
-       lengthMenu : [5, 10, 25],
-   } );
-   }, 1);
+  //   }
+  //   console.log(record, 'record')
+  //  }
 
-  })
+  //  this.data = record;
+
+  //   // successful_response true means user register sucessfully
+  //   // if(data.status == "success")
+  //   // {
+  //   //   this.data = data.data;
+
+
+
+  //   // } else {
+  //   //   this.data = data.data;
+  //   // }
+
+  //   console.log(this.data, 'this.data')
+
+
+    
+  //     //  destroy: true,
+
+
+  //     $('#datatableexample').DataTable().destroy()
+  //   // setTimeout(()=>{
+  //   var table =   $('#datatableexample').DataTable( {
+  //     //  destroy: true,
+  //      data:this.data,
+
+  //     // retrieve: true,
+  //      pagingType: 'full_numbers',
+  //      pageLength: 5,
+  //      processing: true,
+  //      lengthMenu : [5, 10, 25],
+  //  } );
+
+   
+  // //  table.ajax.reload()
+  // //  }, 1);
+
+  // })
 
   console.log(this.slotBookingForm.value);
 }
 
 
+updateItem(id:any){
+  alert(id)
+}
+deleteItem(id:any){
+  alert(id);
+}
+ 
+
+
+ngOnDestroy(): void {
+  this.dtTrigger.unsubscribe();
+}
 
 ngAfterViewInit () {
 

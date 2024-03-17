@@ -1,0 +1,28 @@
+
+<div class="row">
+<table  datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <td>Token</td>
+            <td>Name</td>
+            <td>Date</td>
+            <td>Time</td>
+            <!-- <td>Phone</td> -->
+        </tr>
+    </thead>
+    <tbody>
+
+    
+<tr *ngFor="let item of Invoiceheader ">
+
+<td>{{item?.appointment_details?.token_number}}</td>
+<td >{{item?.appointment_details?.patient_id?.patientName}}</td>
+<td>{{item?.appointment_details?.appointment_date}}</td>
+<td >{{item?.appointment_details?.slot_time}}</td>
+<!-- <td width="20%">{{item?.appointment_details?.patient_id?.phoneNumber}}</td> -->
+
+</tr>
+    </tbody>
+
+</table>
+</div>

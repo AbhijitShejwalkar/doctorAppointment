@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-content>
       <div class="header">
-        <P>Slot Booking</P>
+        <P>Enter Date to Check Time slot</P>
       </div>
       <form (ngSubmit)="onSlotBooking()"  [formGroup]="slotBookingForm">
         <div class="emailInput">
@@ -15,19 +15,21 @@
           </mat-form-field>
          </div>
 
-        <button mat-flat-button color="primary">Next</button>
+        <button mat-flat-button color="primary">Search</button>
       </form>
 
     </mat-card-content>
   </mat-card>
 </div>
+
+<div class="row alert alert-primary" role="alert" style="text-align: center;
+    border-color: white;">
+
+ <h3 *ngIf="slotBookingData.length > 0">Available Time slot for Date {{ selectedDateInfo }}</h3>
+ <h3 *ngIf="slotBookingData.length == 0">No Available Time slot for Date {{ selectedDateInfo }}</h3> 
+</div>
 <div class="row">
-  <!-- <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        Time slot
-      </mat-card-title>
-    </mat-card-header> -->
+ 
     
 
 
@@ -36,9 +38,10 @@
 
           <mat-card class="card">
 
-            <mat-card-content (click)="bookAppointment(slot.slotTime,'11/11/2023')">{{ slot.slotTime }} </mat-card-content>
+            <mat-card-content (click)="bookAppointment(slot.slotTime)">{{ slot.slotTime }} </mat-card-content>
           </mat-card>
         }
+
       </div>
 
   

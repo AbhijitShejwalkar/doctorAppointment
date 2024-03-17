@@ -32,7 +32,7 @@ export class UserInputComponent implements OnInit {
   ngOnInit() {
     this.sessionPhoneNumberValue = localStorage.getItem('sessionPhoneNumber')
     this.ipid  = '192.168.77';
-    alert(this.sessionPhoneNumberValue)
+ //   alert(this.sessionPhoneNumberValue)
   }
 
 
@@ -54,6 +54,7 @@ export class UserInputComponent implements OnInit {
       // successful_response true means user register sucessfully
       if(data.successful_response == true)
       {
+		 localStorage.setItem('patient_id', data.data.patient_id);     
         this.router.navigate(['/slot-booking']);
       }
 

@@ -35,6 +35,7 @@ export class SlotBookingComponent implements OnInit {
   slotBookingData:any[] = [];
   errorMessage: string | undefined;
   paitentId:any;
+  selectedDateInfo:any;
   constructor(private fb: FormBuilder,private router: Router, private slotbookingService: SlotbookingService, public datepipe: DatePipe ) {
 
   }
@@ -47,6 +48,7 @@ export class SlotBookingComponent implements OnInit {
 
     })
 
+    
 
     if (typeof localStorage !== 'undefined') {
       this.paitentId =(localStorage.getItem('patient_id') || '""' );
@@ -85,6 +87,7 @@ export class SlotBookingComponent implements OnInit {
     let object_data = {
         "date": latest_date
     }
+    this.selectedDateInfo = latest_date
     if (typeof localStorage !== 'undefined') {
     localStorage.setItem('selectedDate', this.slotBookingForm.value.slotBookingDate);
     }
@@ -92,11 +95,20 @@ export class SlotBookingComponent implements OnInit {
       // successful_response true means user register sucessfully
       if(data.status == "success")
       {
-          this.slotBookingData = data.data;
-
-
+        const today = new Date();
+        const inputDate = new Date(this.slotBookingForm.value.slotBookingDate);
+        today.setHours(0, 0, 0, 0);
+        inputDate.setHours(0, 0, 0, 0);
+        // Check if the two dates are equal.
+        if (today.getTime() === inputDate.getTime()) {
+          this.slotBookingData = this.filterSlotsByCurrentDateTime(data.data);
+          console.log(this.slotBookingData, 'this.slotBookingData')
+        } else {
+          this.slotBookingData =  data.data
+        }
       } else {
           this.errorMessage = data.message;
+          
       }
 
     })
@@ -105,14 +117,14 @@ export class SlotBookingComponent implements OnInit {
   }
 
 
-  bookAppointment(slot_time:any,appointment_date:any) {
+  bookAppointment(slot_time:any) {
 
     if (typeof localStorage !== 'undefined') {
       let selectedDate = localStorage.getItem('selectedDate');
 
     let selectedDateFomrated = this.datepipe.transform(selectedDate, 'dd/MM/yyyy');
-    alert(selectedDateFomrated);
-    alert(slot_time);
+   // alert(selectedDateFomrated);
+    //alert(slot_time);
 
     let input_object  = {
       "patient_id": this.paitentId,
@@ -141,6 +153,68 @@ export class SlotBookingComponent implements OnInit {
   }
   }
 
+
+
+   filterSlotsByCurrentDateTime(datas:any) {
+    const currentTime = new Date();
+
+    return datas.filter((slot: { slotTime: string; }) => {
+        const slotDateTimeParts = slot.slotTime.split(' ');
+        const slotTime = new Date(currentTime.toDateString() + ' ' + slotDateTimeParts[0] + ' ' + slotDateTimeParts[1]);
+
+        // Compare date first
+        if (slotTime.toDateString() === currentTime.toDateString()) {
+            // If date matches, compare time
+            return slotTime > currentTime;
+        } else {
+            // If date doesn't match, slot is for a future date
+            return false;
+        }
+    });
+}
+
+
+
+  /*
+
+  
+    const datas = [
+      {
+          "slotId": 1,
+          "tokenNumber": 100,
+          "slotTime": "10:00 am"
+      },
+      {
+          "slotId": 3,
+          "tokenNumber": 102,
+          "slotTime": "10:10 am"
+      },
+       {
+          "slotId": 4,
+          "tokenNumber": 102,
+          "slotTime": "02:15 pm"
+      }
+  ];
+  
+  function filterSlotsByCurrentTime(datas:any) {
+      const currentTime = new Date();
+      console.log(currentTime);
+      return datas.filter((slot: { slotTime: string; }) => {
+          const slotTimeParts = slot.slotTime.split(' ');
+          const slotTime = new Date(currentTime.toDateString() + ' ' + slotTimeParts[0] + ' ' + slotTimeParts[1]);
+  
+  
+          return slotTime > currentTime;
+      });
+  }
+  
+  const filteredSlots = filterSlotsByCurrentTime(datas);
+  console.log(filteredSlots);
+  
+
+
+
+  */
 
 
 
