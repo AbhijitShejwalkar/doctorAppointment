@@ -22,8 +22,8 @@
   </mat-card>
 </div>
 
-   
-   <table class="table table-bordered" datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger">
+
+   <table class="" datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger">
             <thead class="bg-dark text-white">
                 <tr>
                     <td>Token</td>
@@ -39,9 +39,9 @@
             </thead>
             <tbody>
 
-            
+
 <tr *ngFor="let item of Invoiceheader ">
-   
+
     <td width="5%">{{item?.appointment_details?.token_number}}</td>
     <td width="20%">{{item?.appointment_details?.patient_id?.patientName}}</td>
     <td width="20%">{{item?.appointment_details?.appointment_date}}</td>
@@ -51,7 +51,7 @@
     <td>{{item.tax | currency}}</td>
     <td>{{item.netTotal | currency}}</td> -->
     <td style="width: 35%">
-<a class="btn btn-primary" (click)="DoneAppointment(item?.appointment_details?.appointmentId)">Done</a>| 
+<a class="btn btn-primary" (click)="DoneAppointment(item?.appointment_details?.appointmentId)">Done</a>|
 <a class="btn btn-danger" (click)="CancelAppointment(item?.appointment_details?.appointmentId)">Cancel</a>
     </td>
 

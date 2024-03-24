@@ -5,10 +5,18 @@
     display: block;
 	height: 100%
 
-	
+
 }
 
 .navbar-inverse {
     background-color: #005fa7;
     border-color: #84bb30;
 }
+
+.footer {
+padding: 12px 0;
+width: 100%;
+background: #005fa7;
+color: #fff;
+}
+
